@@ -1,2 +1,1 @@
 # szu-pet-clinic
-test

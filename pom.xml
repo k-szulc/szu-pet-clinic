@@ -14,7 +14,7 @@
     </parent>
     <groupId>xyz.itbs</groupId>
     <artifactId>szu-pet-clinic</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3-SNAPSHOT</version>
     <name>szu-pet-clinic</name>
     <description>szu-pet-clinic</description>
     <properties>
@@ -43,7 +43,7 @@
 
     <scm>
         <developerConnection>scm:git:git@github.com:k-szulc/szu-pet-clinic.git</developerConnection>
-        <tag>szu-pet-clinic-0.0.2</tag>
+        <tag>HEAD</tag>
     </scm>
 
 </project>

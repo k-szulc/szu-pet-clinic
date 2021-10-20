@@ -1,11 +1,11 @@
 package xyz.itbs.szupetclinic.services.map;
 
 import xyz.itbs.szupetclinic.model.Pet;
-import xyz.itbs.szupetclinic.services.CrudService;
+import xyz.itbs.szupetclinic.services.PetService;
 
 import java.util.Set;
 
-public class PetServiceMap extends AbstractMapService<Pet, Long> implements CrudService<Pet, Long> {
+public class PetServiceMap extends AbstractServiceMap<Pet, Long> implements PetService {
 
     @Override
     public Set<Pet> findAll() {

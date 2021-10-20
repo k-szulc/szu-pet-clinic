@@ -1,11 +1,11 @@
 package xyz.itbs.szupetclinic.services.map;
 
 import xyz.itbs.szupetclinic.model.Owner;
-import xyz.itbs.szupetclinic.services.CrudService;
+import xyz.itbs.szupetclinic.services.OwnerService;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+public class OwnerServiceMap extends AbstractServiceMap<Owner, Long> implements OwnerService {
 
     @Override
     public Set<Owner> findAll() {
@@ -30,5 +30,10 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public Owner findByLastNme(String lastName) {
+        return null;
     }
 }

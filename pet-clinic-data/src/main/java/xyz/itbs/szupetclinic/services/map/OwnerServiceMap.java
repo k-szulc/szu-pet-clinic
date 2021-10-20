@@ -1,10 +1,12 @@
 package xyz.itbs.szupetclinic.services.map;
 
+import org.springframework.stereotype.Service;
 import xyz.itbs.szupetclinic.model.Owner;
 import xyz.itbs.szupetclinic.services.OwnerService;
 
 import java.util.Set;
 
+@Service
 public class OwnerServiceMap extends AbstractServiceMap<Owner, Long> implements OwnerService {
 
     @Override

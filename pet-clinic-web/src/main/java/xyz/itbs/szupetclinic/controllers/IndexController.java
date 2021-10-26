@@ -10,4 +10,9 @@ public class IndexController {
     public String returnIndex(){
         return "index";
     }
+
+    @RequestMapping({"/error","/oops","/oups"})
+    public String returnError() {
+        return "error";
+    }
 }

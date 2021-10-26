@@ -3,10 +3,7 @@ package xyz.itbs.szupetclinic.bootstrap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import xyz.itbs.szupetclinic.model.*;
-import xyz.itbs.szupetclinic.services.OwnerService;
-import xyz.itbs.szupetclinic.services.PetTypeService;
-import xyz.itbs.szupetclinic.services.SpecialityService;
-import xyz.itbs.szupetclinic.services.VetService;
+import xyz.itbs.szupetclinic.services.*;
 
 import java.time.LocalDate;
 
@@ -17,13 +14,14 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final PetService petService;
 
-
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, PetService petService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.petService = petService;
     }
 
     @Override
@@ -65,14 +63,15 @@ public class DataLoader implements CommandLineRunner {
         owner1.setAddress("GCPD Dept.");
         owner1.setCity("Gotham");
         owner1.setTelephone("911");
-        ownerService.save(owner1);
 
         Pet jamesPet = new Pet();
         jamesPet.setPetName("Joker");
         jamesPet.setPetType(savedCatPetType);
         jamesPet.setBirthDate(LocalDate.now());
         jamesPet.setOwner(owner1);
+//        petService.save(jamesPet);
         owner1.getPets().add(jamesPet);
+        ownerService.save(owner1);
 
         Owner owner2 = new Owner();
         owner2.setFirstName("Alfred");
@@ -80,14 +79,15 @@ public class DataLoader implements CommandLineRunner {
         owner2.setAddress("Wayne Manor");
         owner2.setCity("Gotham");
         owner2.setTelephone("12345678");
-        ownerService.save(owner2);
 
         Pet alfredPet = new Pet();
         alfredPet.setPetName("Ace");
         alfredPet.setPetType(savedDogPetType);
         alfredPet.setBirthDate(LocalDate.now());
         alfredPet.setOwner(owner2);
+//        petService.save(alfredPet);
         owner2.getPets().add(alfredPet);
+        ownerService.save(owner2);
 
         Owner owner3 = new Owner();
         owner3.setFirstName("Duke");
@@ -95,7 +95,8 @@ public class DataLoader implements CommandLineRunner {
         owner3.setAddress("Narrows");
         owner3.setCity("Gotham");
         owner3.setTelephone("23232323");
-        ownerService.save(owner3);
+//        ownerService.save(owner3);
+
 
         Pet dukePet = new Pet();
         dukePet.setPetName("Signal");
@@ -103,6 +104,9 @@ public class DataLoader implements CommandLineRunner {
         dukePet.setBirthDate(LocalDate.now());
         dukePet.setOwner(owner3);
         owner3.getPets().add(dukePet);
+        ownerService.save(owner3);
+
+
 
         System.out.println("SzuPetClinic :: DataLoader :: Loaded Owners :: " + ownerService.findAll());
 

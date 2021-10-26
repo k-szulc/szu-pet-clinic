@@ -14,14 +14,13 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
-    private final PetService petService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, PetService petService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService,
+                      SpecialityService specialityService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
-        this.petService = petService;
     }
 
     @Override
@@ -69,7 +68,6 @@ public class DataLoader implements CommandLineRunner {
         jamesPet.setPetType(savedCatPetType);
         jamesPet.setBirthDate(LocalDate.now());
         jamesPet.setOwner(owner1);
-//        petService.save(jamesPet);
         owner1.getPets().add(jamesPet);
         ownerService.save(owner1);
 
@@ -85,7 +83,6 @@ public class DataLoader implements CommandLineRunner {
         alfredPet.setPetType(savedDogPetType);
         alfredPet.setBirthDate(LocalDate.now());
         alfredPet.setOwner(owner2);
-//        petService.save(alfredPet);
         owner2.getPets().add(alfredPet);
         ownerService.save(owner2);
 
@@ -95,8 +92,6 @@ public class DataLoader implements CommandLineRunner {
         owner3.setAddress("Narrows");
         owner3.setCity("Gotham");
         owner3.setTelephone("23232323");
-//        ownerService.save(owner3);
-
 
         Pet dukePet = new Pet();
         dukePet.setPetName("Signal");
@@ -105,8 +100,6 @@ public class DataLoader implements CommandLineRunner {
         dukePet.setOwner(owner3);
         owner3.getPets().add(dukePet);
         ownerService.save(owner3);
-
-
 
         System.out.println("SzuPetClinic :: DataLoader :: Loaded Owners :: " + ownerService.findAll());
 
@@ -121,7 +114,6 @@ public class DataLoader implements CommandLineRunner {
         vet2.setLastName("Kyle");
         vet2.getSpecialities().add(savedSurgery);
         vetService.save(vet2);
-
 
         Vet vet3 = new Vet();
         vet3.setFirstName("Stephanie");

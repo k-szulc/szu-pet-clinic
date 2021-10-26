@@ -3,8 +3,12 @@ package xyz.itbs.szupetclinic.bootstrap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import xyz.itbs.szupetclinic.model.Owner;
+import xyz.itbs.szupetclinic.model.Pet;
+import xyz.itbs.szupetclinic.model.PetType;
 import xyz.itbs.szupetclinic.model.Vet;
 import xyz.itbs.szupetclinic.services.OwnerService;
+import xyz.itbs.szupetclinic.services.PetService;
+import xyz.itbs.szupetclinic.services.PetTypeService;
 import xyz.itbs.szupetclinic.services.VetService;
 
 @Component
@@ -12,14 +16,25 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+
+        PetType cat = new PetType();
+        cat.setName("Cat");
+        PetType savedCatPetType = petTypeService.save(cat);
+        PetType dog = new PetType();
+        dog.setName("Dog");
+        PetType savedDogPetType = petTypeService.save(dog);
+
 
         Owner owner1 = new Owner();
         owner1.setFirstName("James");
@@ -54,6 +69,9 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(vet3);
 
         System.out.println("SzuPetClinic :: DataLoader :: Loaded Vets :: " + vetService.findAll());
+
+
+
 
     }
 }

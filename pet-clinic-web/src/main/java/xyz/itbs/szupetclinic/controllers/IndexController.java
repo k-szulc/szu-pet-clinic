@@ -11,7 +11,7 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping({"/error","/oops","/oups"})
+    @RequestMapping({"/oops","/oups"})
     public String returnError() {
         return "error";
     }

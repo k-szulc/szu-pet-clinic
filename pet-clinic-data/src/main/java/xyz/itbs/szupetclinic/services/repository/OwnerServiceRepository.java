@@ -23,13 +23,13 @@ public class OwnerServiceRepository implements OwnerService{
     @Override
     public Set<Owner> findAll() {
         Set<Owner> ownerSet = new HashSet<>();
-        ownerRepository.findAll().iterator().forEachRemaining(ownerSet::add);
+        ownerRepository.findAll().forEach(ownerSet::add);
         return ownerSet;
     }
 
     @Override
     public Owner findById(Long aLong) {
-        return null;
+        return ownerRepository.findById(aLong).orElse(null);
     }
 
     @Override
@@ -39,16 +39,17 @@ public class OwnerServiceRepository implements OwnerService{
 
     @Override
     public void delete(Owner object) {
+        ownerRepository.delete(object);
 
     }
 
     @Override
     public void deleteById(Long aLong) {
-
+        ownerRepository.deleteById(aLong);
     }
 
     @Override
     public Owner findByLastNme(String lastName) {
-        return null;
+        return ownerRepository.findByLastName(lastName);
     }
 }

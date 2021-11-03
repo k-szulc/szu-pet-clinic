@@ -1,6 +1,5 @@
-package xyz.itbs.szupetclinic.services.repository;
+package xyz.itbs.szupetclinic.services.jpa;
 
-import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import xyz.itbs.szupetclinic.model.Owner;
@@ -11,12 +10,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Profile("repo")
-public class OwnerServiceRepository implements OwnerService{
+@Profile("jpa")
+public class OwnerServiceJPA implements OwnerService{
 
     private final OwnerRepository ownerRepository;
 
-    public OwnerServiceRepository(OwnerRepository ownerRepository) {
+    public OwnerServiceJPA(OwnerRepository ownerRepository) {
         this.ownerRepository = ownerRepository;
     }
 

@@ -11,7 +11,6 @@ import xyz.itbs.szupetclinic.services.PetTypeService;
 import java.util.Set;
 
 @Service
-@Profile("map")
 public class OwnerServiceMap extends AbstractServiceMap<Owner, Long> implements OwnerService {
 
     private final PetTypeService petTypeService;

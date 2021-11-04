@@ -1,5 +1,6 @@
 package xyz.itbs.szupetclinic.services.map;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import xyz.itbs.szupetclinic.model.Owner;
 import xyz.itbs.szupetclinic.model.Pet;
@@ -10,6 +11,7 @@ import xyz.itbs.szupetclinic.services.PetTypeService;
 import java.util.Set;
 
 @Service
+@Profile("map")
 public class OwnerServiceMap extends AbstractServiceMap<Owner, Long> implements OwnerService {
 
     private final PetTypeService petTypeService;

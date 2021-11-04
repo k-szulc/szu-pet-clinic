@@ -1,5 +1,6 @@
 package xyz.itbs.szupetclinic.services.map;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import xyz.itbs.szupetclinic.model.PetType;
 import xyz.itbs.szupetclinic.services.PetTypeService;
@@ -7,6 +8,7 @@ import xyz.itbs.szupetclinic.services.PetTypeService;
 import java.util.Set;
 
 @Service
+@Profile("map")
 public class PetTypeServiceMap extends AbstractServiceMap<PetType, Long> implements PetTypeService {
 
     @Override

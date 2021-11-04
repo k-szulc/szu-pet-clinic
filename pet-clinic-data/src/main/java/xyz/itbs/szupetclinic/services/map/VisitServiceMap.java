@@ -1,5 +1,6 @@
 package xyz.itbs.szupetclinic.services.map;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import xyz.itbs.szupetclinic.model.Visit;
 import xyz.itbs.szupetclinic.services.VisitService;
@@ -7,6 +8,7 @@ import xyz.itbs.szupetclinic.services.VisitService;
 import java.util.Set;
 
 @Service
+@Profile("map")
 public class VisitServiceMap extends AbstractServiceMap<Visit, Long> implements VisitService {
 
     @Override

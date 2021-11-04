@@ -51,7 +51,7 @@ public class Visit extends BaseEntity{
         return "Visit{" +
                 "date=" + date +
                 ", description='" + description + '\'' +
-                ", pet=" + pet +
+                ", pet=" + pet.getPetName() +
                 "} " + super.toString();
     }
 }

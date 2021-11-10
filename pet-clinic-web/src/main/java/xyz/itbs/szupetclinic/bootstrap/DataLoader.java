@@ -1,13 +1,17 @@
 package xyz.itbs.szupetclinic.bootstrap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import xyz.itbs.szupetclinic.model.*;
 import xyz.itbs.szupetclinic.services.*;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
+@Slf4j
 @Component
+@Transactional
 public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
@@ -103,8 +107,6 @@ public class DataLoader implements CommandLineRunner {
         owner3.getPets().add(dukePet);
         ownerService.save(owner3);
 
-        System.out.println("SzuPetClinic :: DataLoader :: Loaded Owners :: " + ownerService.findAll());
-
         Vet vet1 = new Vet();
         vet1.setFirstName("Pamela");
         vet1.setLastName("Isley");
@@ -122,8 +124,6 @@ public class DataLoader implements CommandLineRunner {
         vet3.setLastName("Brown");
         vet3.getSpecialities().add(savedDentistry);
         vetService.save(vet3);
-
-        System.out.println("SzuPetClinic :: DataLoader :: Loaded Vets :: " + vetService.findAll());
 
         Visit catVisit = new Visit();
         catVisit.setPet(jamesPet);
@@ -143,7 +143,9 @@ public class DataLoader implements CommandLineRunner {
         fishVisit.setDescription("Fish");
         visitService.save(fishVisit);
 
-        System.out.println("SzuPetClinic :: DataLoader :: Loaded Visits :: " + visitService.findAll());
+        log.info("Loaded Owners :: " + ownerService.findAll());
+        log.info("Loaded Vets :: " + vetService.findAll());
+        log.info("Loaded Visits :: " + visitService.findAll());
 
     }
 }

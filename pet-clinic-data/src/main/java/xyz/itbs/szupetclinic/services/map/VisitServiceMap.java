@@ -28,6 +28,8 @@ public class VisitServiceMap extends AbstractServiceMap<Visit, Long> implements 
                 || object.getPet().getOwner().getId() == null){
             throw new RuntimeException("Invalid Visit - Owner or Pet cannot be null !");
         }
+        object.getPet().getVisits().add(object);
+
 
         return super.save(object);
 

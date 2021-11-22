@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import xyz.itbs.szupetclinic.services.VetService;
 
 @Controller
+@RequestMapping("/vets")
 public class VetController {
 
     private final VetService vetService;
@@ -14,7 +15,7 @@ public class VetController {
         this.vetService = vetService;
     }
 
-    @RequestMapping({"/vets", "/vets/index", "vets/index.html"})
+    @RequestMapping({"/index", "/index.html"})
     public String listVets(Model model) {
         model.addAttribute("vets", vetService.findAll());
         return "vets/index";

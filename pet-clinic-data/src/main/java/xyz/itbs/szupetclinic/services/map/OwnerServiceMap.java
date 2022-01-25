@@ -8,7 +8,9 @@ import xyz.itbs.szupetclinic.services.OwnerService;
 import xyz.itbs.szupetclinic.services.PetService;
 import xyz.itbs.szupetclinic.services.PetTypeService;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @Profile("map")
@@ -80,4 +82,15 @@ public class OwnerServiceMap extends AbstractServiceMap<Owner, Long> implements 
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public List<Owner> findAllByLastNameLike(String lastName) {
+
+        return super.findAll()
+                .stream()
+//                .filter(owner -> owner.getLastName().equalsIgnoreCase(lastName))
+                .filter(owner -> owner.getLastName().toUpperCase().contains(lastName.toUpperCase()))
+                .collect(Collectors.toList());
+    }
 }
+

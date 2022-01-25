@@ -7,6 +7,7 @@ import xyz.itbs.szupetclinic.repositories.OwnerRepository;
 import xyz.itbs.szupetclinic.services.OwnerService;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -50,5 +51,10 @@ public class OwnerServiceJPA implements OwnerService{
     @Override
     public Owner findByLastName(String lastName) {
         return ownerRepository.findByLastName(lastName);
+    }
+
+    @Override
+    public List<Owner> findAllByLastNameLike(String lastName) {
+        return ownerRepository.findAllByLastNameLike("%"+lastName+"%");
     }
 }

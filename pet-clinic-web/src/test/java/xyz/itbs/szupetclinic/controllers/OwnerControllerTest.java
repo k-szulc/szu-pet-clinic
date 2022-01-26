@@ -115,9 +115,20 @@ class OwnerControllerTest {
 
 
     @Test
-    void processCreationForm() throws Exception {
-        when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).lastName("Foo").build());
+    void processCreationFormNotValid() throws Exception {
         mockMvc.perform(post("/owners/new"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(OWNERS_CREATE_OR_UPDATE_OWNER_FORM));
+
+        verifyNoInteractions(ownerService);
+    }
+
+    @Test
+    void processCreationForm() throws Exception {
+        when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).lastName("Foo").firstName("Bar").build());
+        mockMvc.perform(post("/owners/new")
+                        .param("lastName","Foo")
+                        .param("firstName","Bar"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/owners/1"))
                 .andExpect(view().name("redirect:/owners/1"));
@@ -136,14 +147,25 @@ class OwnerControllerTest {
 
     @Test
     void processUpdateOwnerForm() throws Exception {
-        when(ownerService.save(ArgumentMatchers.any())).thenReturn(Owner.builder().id(1L).build());
+        when(ownerService.save(ArgumentMatchers.any())).thenReturn
+                (Owner.builder().id(1L).firstName("Foo").lastName("Bar").build());
 
-        mockMvc.perform(post("/owners/1/edit"))
+        mockMvc.perform(post("/owners/1/edit")
+                        .param("firstName","Foo")
+                        .param("lastName","Bar"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/owners/1"))
                 .andExpect(model().attributeExists("owner"));
 
         verify(ownerService).save(ArgumentMatchers.any());
+    }
+
+    @Test
+    void processUpdateOwnerFormNotValid() throws Exception {
+        mockMvc.perform(post("/owners/1/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name(OWNERS_CREATE_OR_UPDATE_OWNER_FORM));
+        verifyNoInteractions(ownerService);
     }
 
 }

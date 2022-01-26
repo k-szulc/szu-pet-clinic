@@ -10,6 +10,7 @@ import xyz.itbs.szupetclinic.model.Owner;
 import xyz.itbs.szupetclinic.repositories.OwnerRepository;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -101,5 +102,12 @@ class OwnerServiceJPATest {
         Owner owner1 = ownerServiceJPA.findByLastName("foo");
         assertNull(owner1);
         verify(ownerRepository,times(1)).findByLastName(anyString());
+    }
+
+    @Test
+    void findAllByLastNameLike(){
+        ownerServiceJPA.findAllByLastNameLike("o");
+        verify(ownerRepository,times(1)).findAllByLastNameLikeIgnoreCase(anyString());
+
     }
 }

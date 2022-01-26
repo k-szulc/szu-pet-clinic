@@ -88,7 +88,6 @@ public class OwnerServiceMap extends AbstractServiceMap<Owner, Long> implements 
 
         return super.findAll()
                 .stream()
-//                .filter(owner -> owner.getLastName().equalsIgnoreCase(lastName))
                 .filter(owner -> owner.getLastName().toUpperCase().contains(lastName.toUpperCase()))
                 .collect(Collectors.toList());
     }

@@ -7,6 +7,7 @@ import xyz.itbs.szupetclinic.model.Pet;
 import xyz.itbs.szupetclinic.model.PetType;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -22,6 +23,7 @@ class OwnerServiceMapTest {
     void setUp() {
         ownerServiceMap = new OwnerServiceMap(new PetTypeServiceMap(),new PetServiceMap());
         ownerServiceMap.save(Owner.builder().id(id).lastName(lastName).build());
+
 
     }
 
@@ -92,7 +94,7 @@ class OwnerServiceMapTest {
         pets.add(savedPet);
         String errorMsg = "Pet Type is required";
         Exception exception = assertThrows
-                (RuntimeException.class,()->{ownerServiceMap.save(Owner.builder().pets(pets).build());});
+                (RuntimeException.class,()-> ownerServiceMap.save(Owner.builder().pets(pets).build()));
         assertEquals(errorMsg,exception.getMessage());
         assertEquals(1,ownerServiceMap.findAll().size());
     }
@@ -121,4 +123,32 @@ class OwnerServiceMapTest {
         Owner namedOwner = ownerServiceMap.findByLastName("test");
         assertNull(namedOwner);
     }
+
+    @Test
+    void findAllByLastNameLike(){
+        ownerServiceMap.save(Owner.builder().id(2L).lastName("Gordon").build());
+        ownerServiceMap.save(Owner.builder().id(3L).lastName("Pennyworth").build());
+        List<Owner> oOwners = ownerServiceMap.findAllByLastNameLike("o");
+        assertEquals(2,oOwners.size());
+
+    }
+
+    @Test
+    void findAllByLastNameLikeCase(){
+        ownerServiceMap.save(Owner.builder().id(2L).lastName("Gordon").build());
+        ownerServiceMap.save(Owner.builder().id(3L).lastName("Pennyworth").build());
+        List<Owner> oOwners = ownerServiceMap.findAllByLastNameLike("O");
+        assertEquals(2,oOwners.size());
+
+    }
+
+    @Test
+    void findAllByLastNameLikeNotFound(){
+
+        ownerServiceMap.save(Owner.builder().id(2L).lastName("Gordon").build());
+        ownerServiceMap.save(Owner.builder().id(3L).lastName("Pennyworth").build());
+        List<Owner> oOwners = ownerServiceMap.findAllByLastNameLike("b");
+        assertEquals(0,oOwners.size());
+    }
+
 }

@@ -14,6 +14,8 @@ import xyz.itbs.szupetclinic.services.PetService;
 import xyz.itbs.szupetclinic.services.PetTypeService;
 
 import javax.validation.Valid;
+import java.beans.PropertyEditorSupport;
+import java.time.LocalDate;
 import java.util.Collection;
 
 
@@ -46,6 +48,12 @@ public class PetController {
     @InitBinder("owner")
     public void initOwnerBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
+        dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) throws IllegalArgumentException{
+                setValue(LocalDate.parse(text));
+            }
+        });
     }
 
     @GetMapping("/pets/new")
@@ -83,13 +91,10 @@ public class PetController {
     @PostMapping("/pets/{petId}/edit")
     public String processUpdateForm(Owner owner, @Valid Pet pet, @PathVariable Long petId, BindingResult result, Model model){
         if (result.hasErrors()) {
-            owner.getPets().add(pet);
-            pet.setOwner(owner);
             model.addAttribute("pet", pet);
             return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
         }
         else {
-            owner.getPets().add(pet);
             pet.setOwner(owner);
             petService.save(pet);
             return "redirect:/owners/" + owner.getId();

@@ -1,6 +1,7 @@
 package xyz.itbs.szupetclinic.model;
 
 import lombok.*;
+import org.springframework.util.Assert;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -65,5 +66,32 @@ public class Owner extends Person {
             }
         }
         return null;
+    }
+
+    public Pet getPet(Long id) {
+        for (Pet pet : getPets()) {
+            if (!pet.isNew()) {
+                Long compId = pet.getId();
+                if (compId.equals(id)) {
+                    return pet;
+                }
+            }
+        }
+        return null;
+    }
+
+    public Owner addVisit(Long petId, Visit visit) {
+
+        Assert.notNull(petId, "Pet identifier must not be null!");
+        Assert.notNull(visit, "Visit must not be null!");
+
+        Pet pet = getPet(petId);
+
+        Assert.notNull(pet, "Invalid Pet identifier!");
+
+        pet.getVisits().add(visit);
+        visit.setPet(pet);
+
+        return this;
     }
 }

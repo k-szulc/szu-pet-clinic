@@ -45,8 +45,8 @@ public class PetController {
         return ownerService.findById(ownerId);
     }
 
-    @InitBinder("owner")
-    public void initOwnerBinder(WebDataBinder dataBinder) {
+    @InitBinder()
+    public void dataBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
         dataBinder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
             @Override
